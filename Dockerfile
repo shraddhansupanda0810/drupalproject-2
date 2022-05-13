@@ -1,4 +1,4 @@
-FROM debian:goldenimage
+FROM debian:11jessie-slim
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
