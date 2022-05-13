@@ -1,4 +1,4 @@
-FROM debian:11jessie-slim
+FROM debian:11-slim
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
