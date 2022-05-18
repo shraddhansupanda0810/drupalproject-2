@@ -1,48 +1,38 @@
-version: "3"
+version: "3.3"
 
 services:
   mysql:
-    image: mysql:8.0
+    image: mysql/mysql-server:latest
     container_name: mysql
     command: --default-authentication-plugin=mysql_native_password
-    restart: unless-stopped
+    restart: always
+    ports:
+      - 3306:3306
+    Expose:
+      - 3306
     env_file: .env
     volumes:
       - db-data:/var/lib/mysql
     networks:
-      - internal
-  
-  drupal:
-    build: .
+      - drupal_network
+
+  mydrupal:
+    #build: .
+    image: shrpanda0810/shraddhansu1
     container_name: drupal
+    ports:
+      - 80:80
+      - 443:443
     depends_on:
       - mysql
     restart: unless-stopped
     networks:
-      - internal
-      - external
+      - drupal_network
     volumes:
       - drupal-data:/var/www/html
-  
-  webserver:
-    image: nginx:1.17.4-alpine
-    container_name: webserver
-    depends_on:
-      - drupal
-    restart: unless-stopped
-    ports:
-      - 70:70
-    volumes:
-      - drupal-data:/var/www/html
-      - ./nginx-conf:/etc/nginx/conf.d
-    networks:
-      - external
-  
 
 networks:
-  external:
-    driver: bridge
-  internal:
+  drupal_network:
     driver: bridge
 
 volumes:
