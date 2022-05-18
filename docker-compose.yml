@@ -8,8 +8,6 @@ services:
     restart: always
     ports:
       - 3306:3306
-    Expose:
-      - 3306
     env_file: .env
     volumes:
       - db-data:/var/lib/mysql
@@ -30,9 +28,6 @@ services:
       - drupal_network
     volumes:
       - drupal-data:/var/www/html
-<<<<<<< HEAD
-=======
-  
   webserver:
     image: nginx:1.17.4-alpine
     container_name: webserver
@@ -46,8 +41,6 @@ services:
       - ./nginx-conf:/etc/nginx/conf.d
     networks:
       - external
-  
->>>>>>> a51b609ac5132375a70e524c71c75bd02bd57af9
 
 networks:
   drupal_network:
