@@ -28,20 +28,6 @@ services:
       - drupal_network
     volumes:
       - drupal-data:/var/www/html
-  webserver:
-    image: nginx:1.17.4-alpine
-    container_name: webserver
-    depends_on:
-      - drupal
-    restart: unless-stopped
-    ports:
-      - 60:60
-    volumes:
-      - drupal-data:/var/www/html
-      - ./nginx-conf:/etc/nginx/conf.d
-    networks:
-      - external
-
 networks:
   drupal_network:
     driver: bridge
